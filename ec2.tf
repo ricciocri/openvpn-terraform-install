@@ -3,7 +3,7 @@ data "aws_ami" "amazon_linux_2" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm*"]
+    values = [var.aws_ami_name]
   }
 
   filter {
@@ -13,12 +13,12 @@ data "aws_ami" "amazon_linux_2" {
 
   filter {
     name   = "block-device-mapping.volume-type"
-    values = ["gp2"]
+    values = [var.aws_ami_vol_type]
   }
 
   filter {
     name   = "virtualization-type"
-    values = ["hvm"]
+    values = [var.aws_ami_virt_type]
   }
 
   owners = ["amazon"]
@@ -76,7 +76,21 @@ resource "null_resource" "openvpn_bootstrap" {
       <<EOT
       sudo AUTO_INSTALL=y \
            APPROVE_IP=${aws_eip.openvpn_eip.public_ip} \
-           ENDPOINT=${aws_eip.openvpn_eip.public_dns} \
+           ENDPOINT=${var.use_public_dns ? aws_eip.openvpn_eip.public_dns : aws_eip.openvpn_eip.public_ip} \
+           PORT=${var.ovpn_port} \
+           CLIENT=${var.ovpn_client} \
+           CIPHER=${var.ovpn_cipher} \
+           TLS_SIG=${var.ovpn_tls_sig} \
+           SRV_BUFF_SIZE_MAX=${var.ovpn_srv_buff_size_max} \
+           SRV_BUFF_SIZE_DEFAULT=${var.ovpn_srv_buff_size_default} \
+           CLIENT_BUFF_SIZE=${var.ovpn_client_buff_size} \
+           DNS=${var.ovpn_dns}  \
+           IPV6_SUPPORT=n \
+           PORT_CHOICE=2 \
+           PROTOCOL_CHOICE=1 \
+           COMPRESSION_ENABLED=n \
+           PASS=1 \
+           CUSTOMIZE_ENC=n \
            ./openvpn-install.sh
       
 EOT

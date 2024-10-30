@@ -3,6 +3,6 @@ data "http" "local_ip_address" {
 }
 
 locals {
-  local_ip_address = "${chomp(data.http.local_ip_address.body)}/32"
+  local_ip_address = "${chomp(data.http.local_ip_address.response_body)}/32"
 }
 
