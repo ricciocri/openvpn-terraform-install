@@ -31,6 +31,21 @@ variable "instance_root_block_device_volume_size" {
   default     = 8
 }
 
+variable "aws_ami_name" {
+  description = "The AWS AMI name patter to use for instance creation"
+  default     = "mzn2-ami-hvm*"
+}
+
+variable "aws_ami_vol_type" {
+  description = "The AWS Storage type of AMI"
+  default     = "gp2"
+}
+
+variable "aws_ami_virt_type" {
+  description = "The AWS virtualization type of AMI"
+  default     = "hvm"
+}
+
 variable "ec2_username" {
   description = "The user to connect to the EC2 as"
   default     = "ec2-user"
@@ -39,6 +54,12 @@ variable "ec2_username" {
 variable "openvpn_install_script_location" {
   description = "The location of an OpenVPN installation script compatible with https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh"
   default     = "https://raw.githubusercontent.com/dumrauf/openvpn-install/master/openvpn-install.sh"
+}
+
+variable "use_public_dns" {
+  type = bool
+  description = "Define the OpenVPN endpoint as a public dns"
+  default     = true
 }
 
 variable "ssh_public_key_file" {
@@ -53,6 +74,17 @@ variable "ssh_private_key_file" {
   default     = "settings/openvpn"
 }
 
+variable "ovpn_port" {
+  type        = number
+  description = "The OpenVPN port"
+  default     = 1194
+}
+
+variable "ovpn_client" {
+  description = "The client name"
+  default     = "client"
+}
+
 variable "ovpn_users" {
   type        = list(string)
   description = "The list of users to automatically provision with OpenVPN access"
@@ -63,3 +95,37 @@ variable "ovpn_config_directory" {
   default     = "generated/ovpn-config"
 }
 
+variable "ovpn_tls_sig" {
+  type        = number
+  description = "The OpenVPN TLS security type, 2-tls-auth, 1-tls-crypt"
+  default     = 1
+}
+
+variable "ovpn_cipher" {
+  description = "The OpenVPN cipher to use"
+  default     = "AES-256-CBC"
+}
+
+variable "ovpn_dns" {
+  type        = number
+  description = "The OpenVPN DNS to use."
+  default     = 1
+}
+
+variable "ovpn_srv_buff_size_max" {
+  type        = number
+  description = "Define the TCP/UDP socket send/receive max buffer size for the OpenVPN server"
+  default     = 8388608
+}
+
+variable "ovpn_srv_buff_size_default" {
+  type        = number
+  description = "Define the TCP/UDP socket send/receive default buffer size for the OpenVPN server"
+  default     = 262143
+}
+
+variable "ovpn_client_buff_size" {
+  type        = number
+  description = "Define the TCP/UDP socket send/receive buffer size for the OpenVPN client"
+  default     = 262143
+}
