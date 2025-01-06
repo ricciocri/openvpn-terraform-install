@@ -4,7 +4,8 @@ This repository contains a one-stop Terraform module that creates a single node 
 
 > For further information, see the corresponding article on [Ready to Use OpenVPN Servers in AWS For Everyone](https://www.how-hard-can-it.be/openvpn-server-install-terraform-aws/?utm_source=GitHub&utm_medium=social&utm_campaign=README) on [How Hard Can It Be?!](https://www.how-hard-can-it.be/?utm_source=GitHub&utm_medium=social&utm_campaign=README).
 
-The master branch in this repository is compliant with [Terraform v0.12](https://www.terraform.io/upgrade-guides/0-12.html); a legacy version that is compatible with [Terraform v0.11](https://www.terraform.io/upgrade-guides/0-11.html) is available on branch [terraform@0.11](https://github.com/dumrauf/openvpn-terraform-install/tree/terraform%400.11).
+The master branch in this repository is compliant with [Terraform v1.10](https://developer.hashicorp.com/terraform/language/v1.1.x/upgrade-guides/1-1) 
+A legacy version that is compatible with [Terraform v0.11](https://www.terraform.io/upgrade-guides/0-11.html) is available on branch [terraform@0.11](https://github.com/dumrauf/openvpn-terraform-install/tree/terraform%400.11).
 
 
 ## You Have
