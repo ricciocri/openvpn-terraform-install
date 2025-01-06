@@ -42,11 +42,12 @@ resource "aws_instance" "openvpn" {
   ]
 
   root_block_device {
-    volume_type           = "gp2"
+    volume_type           = var.aws_ec2_vol_type
     volume_size           = var.instance_root_block_device_volume_size
+    encrypted             = var.aws_ami_vol_encrypted 
     delete_on_termination = true
   }
-
+  disable_api_termination = var.aws_ami_protection_on_termination
   tags = {
     Name        = var.tag_name
     Provisioner = "Terraform"
@@ -54,9 +55,13 @@ resource "aws_instance" "openvpn" {
 }
 
 resource "aws_eip" "openvpn_eip" {
-  instance = aws_instance.openvpn.id
-  vpc      = true
+  instance = aws_instance.openvpn.id 
+  tags = {
+    Name = "OpenVPN EIP"
+  }
 }
+
+
 
 resource "null_resource" "openvpn_bootstrap" {
   connection {

@@ -41,6 +41,20 @@ variable "aws_ami_vol_type" {
   default     = "gp2"
 }
 
+variable "aws_ec2_vol_type" {
+  description = "The AWS Storage type of EC2 instance"
+  default     = "gp3"
+}
+variable "aws_ami_vol_encrypted" {
+  description = "The AWS Storage type of AMI"
+  default     = false
+}
+
+variable "aws_ami_protection_on_termination" {
+  description = "The AWS Storage type of AMI"
+  default     = true
+  
+}
 variable "aws_ami_virt_type" {
   description = "The AWS virtualization type of AMI"
   default     = "hvm"
